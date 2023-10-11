@@ -23,15 +23,17 @@ services:
     ports:
       - "24224:24224"
       - "24224:24224/udp"
+    depends_on:
+      - minio
 
   minio:
     image: minio/minio:latest
-    command: ['server', '/data', '--address', ':7100', '--console-address', ':7101']
+    command: ['server', '/data', '--address', ':9000', '--console-address', ':9001']
     environment:
-      - MINIO_ROOT_USER=admin
-      - MINIO_ROOT_PASSWORD=password
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
     ports:
-      - '7100:7100'
-      - '7101:7101'
+      - '9000:9000'
+      - '9001:9001'
     volumes:
       - ./minio:/data
